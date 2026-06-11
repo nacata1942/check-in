@@ -122,28 +122,17 @@
     }
     #cardScreen.visible { display: flex; }
 
-    /* status bar */
-    .status-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-top: max(14px, env(safe-area-inset-top));
-      padding-left: 20px;
-      padding-right: 20px;
-      padding-bottom: 4px;
-      font-size: 14px;
-      font-weight: 700;
-      color: #fff;
-      flex-shrink: 0;
-    }
-    .status-icons { display: flex; gap: 5px; align-items: center; }
+
 
     /* nav bar */
     .nav-bar {
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 10px 20px 0;
+      padding-top: max(16px, env(safe-area-inset-top));
+      padding-left: 20px;
+      padding-right: 20px;
+      padding-bottom: 0;
       position: relative;
       flex-shrink: 0;
     }
@@ -334,25 +323,7 @@
 <!-- CARD -->
 <div id="cardScreen">
 
-  <div class="status-bar">
-    <span id="cardTime">14:29</span>
-    <div class="status-icons">
-      <!-- signal bars -->
-      <svg width="17" height="12" viewBox="0 0 17 12" fill="white">
-        <rect x="0" y="5" width="3" height="7" rx="1"/>
-        <rect x="4.5" y="3" width="3" height="9" rx="1"/>
-        <rect x="9" y="1" width="3" height="11" rx="1"/>
-        <rect x="13.5" y="0" width="3" height="12" rx="1" opacity=".3"/>
-      </svg>
-      <span style="font-size:12px;font-weight:700;letter-spacing:.02em">5G</span>
-      <!-- battery -->
-      <svg width="25" height="12" viewBox="0 0 25 12" fill="none">
-        <rect x="0.5" y="0.5" width="21" height="11" rx="3.5" stroke="white" stroke-opacity=".4"/>
-        <rect x="2" y="2" width="15" height="8" rx="2" fill="white"/>
-        <path d="M23 4v4a2 2 0 000-4z" fill="white" fill-opacity=".5"/>
-      </svg>
-    </div>
-  </div>
+
 
   <div class="nav-bar">
     <span class="close-x" onclick="resetForm()">✕</span>
