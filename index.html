@@ -2,55 +2,54 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Check-In</title>
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="Check-In" />
   <meta name="mobile-web-app-capable" content="yes" />
-  <meta name="theme-color" content="#1a1a2e" />
+  <meta name="theme-color" content="#5BBD8A" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    body {
+    html, body {
+      height: 100%;
       font-family: 'Inter', sans-serif;
-      background: #1a1a2e;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
+      background: #5BBD8A;
+      overflow: hidden;
     }
 
     /* ── FORM SCREEN ── */
-    .form-screen {
+    #formScreen {
+      position: fixed;
+      inset: 0;
       background: #fff;
-      border-radius: 24px;
-      padding: 36px 32px;
-      width: 100%;
-      max-width: 400px;
-      box-shadow: 0 24px 60px rgba(0,0,0,.35);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 36px 28px;
+      padding-top: max(36px, env(safe-area-inset-top));
+      padding-bottom: max(36px, env(safe-area-inset-bottom));
+      overflow-y: auto;
     }
 
-    .form-screen h1 {
-      font-size: 22px;
+    #formScreen h1 {
+      font-size: 24px;
       font-weight: 700;
       color: #111;
       margin-bottom: 6px;
     }
 
-    .form-screen p {
+    #formScreen > p {
       font-size: 14px;
       color: #888;
       margin-bottom: 28px;
     }
 
-    .field {
-      margin-bottom: 18px;
-    }
+    .field { margin-bottom: 18px; }
 
-    label {
+    .field > label {
       display: block;
       font-size: 12px;
       font-weight: 600;
@@ -60,230 +59,34 @@
       margin-bottom: 6px;
     }
 
-    input {
+    input[type="text"], input[type="time"] {
       width: 100%;
-      padding: 13px 16px;
+      padding: 14px 16px;
       border: 1.5px solid #e4e4e4;
-      border-radius: 12px;
-      font-size: 15px;
+      border-radius: 14px;
+      font-size: 16px;
       font-family: inherit;
       color: #111;
       outline: none;
-      transition: border-color .2s;
+      -webkit-appearance: none;
     }
-
-    input:focus { border-color: #4CAF87; }
+    input:focus { border-color: #5BBD8A; }
     input::placeholder { color: #bbb; }
 
     .btn-ok {
-      margin-top: 8px;
+      margin-top: 10px;
       width: 100%;
-      padding: 15px;
-      background: #4CAF87;
+      padding: 16px;
+      background: #5BBD8A;
       color: #fff;
       border: none;
-      border-radius: 14px;
-      font-size: 16px;
+      border-radius: 16px;
+      font-size: 17px;
       font-weight: 700;
       cursor: pointer;
-      transition: background .2s, transform .1s;
       font-family: inherit;
     }
 
-    .btn-ok:hover { background: #3d9e77; }
-    .btn-ok:active { transform: scale(.98); }
-
-    /* ── CARD SCREEN ── */
-    .card-screen {
-      display: none;
-      width: 100%;
-      max-width: 360px;
-    }
-
-    .phone-shell {
-      background: #4CAF87;
-      border-radius: 36px;
-      overflow: hidden;
-      box-shadow: 0 32px 80px rgba(0,0,0,.45);
-      position: relative;
-    }
-
-    /* status bar */
-    .status-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 14px 20px 6px;
-      font-size: 13px;
-      font-weight: 600;
-      color: #fff;
-    }
-
-    .status-icons { display: flex; gap: 6px; align-items: center; font-size: 12px; }
-
-    /* top nav */
-    .nav-bar {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 10px 20px 0;
-      position: relative;
-    }
-
-    .nav-bar .close-x {
-      position: absolute;
-      left: 20px;
-      color: rgba(255,255,255,.8);
-      font-size: 20px;
-      cursor: pointer;
-      line-height: 1;
-    }
-
-    .nav-bar h2 {
-      color: #fff;
-      font-size: 16px;
-      font-weight: 600;
-    }
-
-    /* avatar area */
-    .avatar-area {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 32px 20px 24px;
-      gap: 14px;
-    }
-
-    .avatar-ring {
-      position: relative;
-      width: 120px;
-      height: 120px;
-    }
-
-    .avatar-ring svg.ring-svg {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      animation: spin 8s linear infinite;
-    }
-
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    .avatar-circle {
-      position: absolute;
-      inset: 10px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #a8d8c8 0%, #5bb898 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 38px;
-      overflow: hidden;
-    }
-
-    .check-badge {
-      position: absolute;
-      bottom: 4px;
-      right: 4px;
-      width: 30px;
-      height: 30px;
-      background: #4CAF87;
-      border: 3px solid #4CAF87;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .check-badge svg { width: 16px; height: 16px; }
-
-    .checkin-meta { text-align: center; color: #fff; }
-    .checkin-meta .time-ago { font-size: 13px; opacity: .85; margin-bottom: 4px; }
-    .checkin-meta .name { font-size: 20px; font-weight: 700; }
-    .checkin-meta .member { font-size: 12px; opacity: .7; margin-top: 2px; }
-
-    /* bottom card */
-    .bottom-card {
-      background: #f5f5f5;
-      border-radius: 20px 20px 36px 36px;
-      padding: 20px 20px 28px;
-    }
-
-    .activity-row {
-      display: flex;
-      gap: 14px;
-      align-items: center;
-      background: #fff;
-      border-radius: 14px;
-      padding: 14px;
-      box-shadow: 0 2px 12px rgba(0,0,0,.06);
-    }
-
-    .activity-thumb {
-      width: 52px;
-      height: 52px;
-      border-radius: 10px;
-      background: linear-gradient(135deg, #4CAF87 0%, #2e8b6a 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      flex-shrink: 0;
-    }
-
-    .activity-info { flex: 1; min-width: 0; }
-    .activity-info .act-title { font-size: 15px; font-weight: 700; color: #111; }
-    .activity-info .act-date { font-size: 12px; color: #888; margin-top: 2px; }
-    .activity-info .act-meta { display: flex; gap: 6px; align-items: center; margin-top: 4px; flex-wrap: wrap; }
-    .act-tag {
-      display: flex;
-      align-items: center;
-      gap: 3px;
-      font-size: 11px;
-      color: #555;
-    }
-    .act-tag svg { width: 11px; height: 11px; flex-shrink: 0; }
-
-    .share-btn {
-      display: block;
-      width: 100%;
-      margin-top: 14px;
-      padding: 14px;
-      background: #fff;
-      border: 1.5px solid #4CAF87;
-      border-radius: 12px;
-      color: #4CAF87;
-      font-size: 15px;
-      font-weight: 600;
-      text-align: center;
-      cursor: pointer;
-      font-family: inherit;
-      transition: background .18s;
-    }
-    .share-btn:hover { background: #eaf7f0; }
-
-    .new-checkin-btn {
-      display: block;
-      width: 100%;
-      margin-top: 10px;
-      padding: 14px;
-      background: #4CAF87;
-      border: none;
-      border-radius: 12px;
-      color: #fff;
-      font-size: 15px;
-      font-weight: 600;
-      text-align: center;
-      cursor: pointer;
-      font-family: inherit;
-      transition: background .18s;
-    }
-    .new-checkin-btn:hover { background: #3d9e77; }
-
-    .hidden { display: none; }
-
-    /* photo upload */
     .photo-upload-label {
       display: flex;
       flex-direction: column;
@@ -291,49 +94,216 @@
       justify-content: center;
       gap: 8px;
       width: 100%;
-      height: 110px;
+      height: 100px;
       border: 2px dashed #d0d0d0;
       border-radius: 14px;
       cursor: pointer;
-      transition: border-color .2s, background .2s;
       color: #aaa;
       font-size: 13px;
       position: relative;
       overflow: hidden;
       background: #fafafa;
     }
-    .photo-upload-label:hover { border-color: #4CAF87; background: #f0fbf6; color: #4CAF87; }
-    .photo-upload-label .upload-icon { font-size: 28px; }
+    .photo-upload-label .upload-icon { font-size: 26px; }
     .photo-upload-label img.preview {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 12px;
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover; border-radius: 12px;
     }
-    .photo-upload-label .overlay-hint {
-      position: absolute;
+    #inputPhoto { display: none; }
+
+    /* ── CARD SCREEN ── */
+    #cardScreen {
+      display: none;
+      position: fixed;
       inset: 0;
-      background: rgba(0,0,0,.35);
-      border-radius: 12px;
+      background: #5BBD8A;
+      flex-direction: column;
+    }
+    #cardScreen.visible { display: flex; }
+
+    /* status bar */
+    .status-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: max(14px, env(safe-area-inset-top));
+      padding-left: 20px;
+      padding-right: 20px;
+      padding-bottom: 4px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .status-icons { display: flex; gap: 5px; align-items: center; }
+
+    /* nav bar */
+    .nav-bar {
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #fff;
-      font-size: 13px;
-      font-weight: 600;
-      opacity: 0;
-      transition: opacity .2s;
+      padding: 10px 20px 0;
+      position: relative;
+      flex-shrink: 0;
     }
-    .photo-upload-label:hover .overlay-hint { opacity: 1; }
-    #inputPhoto { display: none; }
+    .close-x {
+      position: absolute;
+      left: 20px;
+      color: rgba(255,255,255,.9);
+      font-size: 22px;
+      cursor: pointer;
+      line-height: 1;
+    }
+    .nav-bar h2 {
+      color: #fff;
+      font-size: 17px;
+      font-weight: 600;
+      letter-spacing: -.01em;
+    }
+
+    /* green area — avatar centered with lots of breathing room */
+    .avatar-area {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      padding: 20px 24px 28px;
+    }
+
+    .avatar-ring {
+      position: relative;
+      width: 140px;
+      height: 140px;
+    }
+    .avatar-ring svg.ring-svg {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      animation: spin 10s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .avatar-circle {
+      position: absolute;
+      inset: 12px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 44px;
+      overflow: hidden;
+    }
+
+    /* green badge with white checkmark — exactly like original */
+    .check-badge {
+      position: absolute;
+      bottom: 6px;
+      right: 6px;
+      width: 34px;
+      height: 34px;
+      background: #5BBD8A;
+      border: 3px solid #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .check-badge svg { width: 17px; height: 17px; }
+
+    .checkin-meta { text-align: center; color: #fff; }
+    .checkin-meta .time-ago {
+      font-size: 13px;
+      opacity: .9;
+      margin-bottom: 6px;
+      font-weight: 400;
+    }
+    .checkin-meta .name {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -.01em;
+    }
+    .checkin-meta .member {
+      font-size: 12px;
+      opacity: .65;
+      margin-top: 5px;
+      font-weight: 400;
+    }
+
+    /* bottom white card — compact, no rounded outer wrapper */
+    .bottom-card {
+      background: #f2f2f2;
+      border-radius: 20px 20px 0 0;
+      padding: 16px 16px max(20px, env(safe-area-inset-bottom));
+      flex-shrink: 0;
+    }
+
+    /* activity row — white card inside */
+    .activity-row {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      background: #fff;
+      border-radius: 14px;
+      padding: 12px 14px;
+      margin-bottom: 14px;
+    }
+
+    .activity-thumb {
+      width: 58px;
+      height: 58px;
+      border-radius: 10px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .activity-thumb img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+
+    .activity-info { flex: 1; min-width: 0; }
+    .act-title { font-size: 15px; font-weight: 700; color: #111; margin-bottom: 2px; }
+    .act-date { font-size: 13px; color: #444; margin-bottom: 5px; }
+
+    .act-meta-line {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+      color: #555;
+      margin-bottom: 3px;
+    }
+    .act-meta-line svg { width: 12px; height: 12px; flex-shrink: 0; }
+    .act-meta-line .location-name { flex: 1; }
+    .act-meta-line .location-short {
+      color: #555;
+      margin-left: 6px;
+      white-space: nowrap;
+    }
+
+    /* share button — outlined, blue text like original */
+    .share-btn {
+      display: block;
+      width: 100%;
+      padding: 15px;
+      background: #fff;
+      border: 1.5px solid #ccc;
+      border-radius: 14px;
+      color: #4A90D9;
+      font-size: 15px;
+      font-weight: 500;
+      text-align: center;
+      cursor: pointer;
+      font-family: inherit;
+    }
   </style>
 </head>
 <body>
 
 <!-- FORM -->
-<div class="form-screen" id="formScreen">
+<div id="formScreen">
   <h1>Check-In 📍</h1>
   <p>Wo gehst du heute hin?</p>
 
@@ -354,7 +324,6 @@
     <label class="photo-upload-label" id="photoLabel" for="inputPhoto">
       <span class="upload-icon">📷</span>
       <span id="photoHint">Foto auswählen</span>
-      <div class="overlay-hint">Anderes Foto wählen</div>
     </label>
     <input type="file" id="inputPhoto" accept="image/*" onchange="previewPhoto(this)" />
   </div>
@@ -363,69 +332,91 @@
 </div>
 
 <!-- CARD -->
-<div class="card-screen" id="cardScreen">
-  <div class="phone-shell">
-    <div class="status-bar">
-      <span id="cardTime">14:29</span>
-      <div class="status-icons">
-        <svg width="16" height="12" viewBox="0 0 16 12" fill="white"><rect x="0" y="4" width="3" height="8" rx="1"/><rect x="4.5" y="2.5" width="3" height="9.5" rx="1"/><rect x="9" y="1" width="3" height="11" rx="1"/><rect x="13.5" y="0" width="2.5" height="12" rx="1"/></svg>
-        <span style="font-size:11px;font-weight:700">5G</span>
-        <svg width="24" height="12" viewBox="0 0 24 12" fill="none"><rect x="0.5" y="0.5" width="21" height="11" rx="3.5" stroke="white" stroke-opacity=".35"/><rect x="2" y="2" width="14" height="8" rx="2" fill="white"/><path d="M23 4.5v3a1.5 1.5 0 000-3z" fill="white" fill-opacity=".4"/></svg>
-      </div>
-    </div>
+<div id="cardScreen">
 
-    <div class="nav-bar">
-      <span class="close-x" onclick="resetForm()">✕</span>
-      <h2>Du bist eingecheckt</h2>
+  <div class="status-bar">
+    <span id="cardTime">14:29</span>
+    <div class="status-icons">
+      <!-- signal bars -->
+      <svg width="17" height="12" viewBox="0 0 17 12" fill="white">
+        <rect x="0" y="5" width="3" height="7" rx="1"/>
+        <rect x="4.5" y="3" width="3" height="9" rx="1"/>
+        <rect x="9" y="1" width="3" height="11" rx="1"/>
+        <rect x="13.5" y="0" width="3" height="12" rx="1" opacity=".3"/>
+      </svg>
+      <span style="font-size:12px;font-weight:700;letter-spacing:.02em">5G</span>
+      <!-- battery -->
+      <svg width="25" height="12" viewBox="0 0 25 12" fill="none">
+        <rect x="0.5" y="0.5" width="21" height="11" rx="3.5" stroke="white" stroke-opacity=".4"/>
+        <rect x="2" y="2" width="15" height="8" rx="2" fill="white"/>
+        <path d="M23 4v4a2 2 0 000-4z" fill="white" fill-opacity=".5"/>
+      </svg>
     </div>
+  </div>
 
-    <div class="avatar-area">
-      <div class="avatar-ring">
-        <svg class="ring-svg" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="60" cy="60" r="55" stroke="rgba(255,255,255,0.3)" stroke-width="2" stroke-dasharray="6 5" stroke-linecap="round"/>
+  <div class="nav-bar">
+    <span class="close-x" onclick="resetForm()">✕</span>
+    <h2>Du bist eingecheckt</h2>
+  </div>
+
+  <div class="avatar-area">
+    <div class="avatar-ring">
+      <svg class="ring-svg" viewBox="0 0 140 140" fill="none">
+        <circle cx="70" cy="70" r="64"
+          stroke="rgba(255,255,255,0.5)"
+          stroke-width="1.5"
+          stroke-dasharray="5 6"
+          stroke-linecap="round"/>
+      </svg>
+      <div class="avatar-circle" id="avatarCircle">🧗</div>
+      <div class="check-badge">
+        <svg viewBox="0 0 17 17" fill="none">
+          <path d="M3.5 8.5l3.8 3.8L13.5 5" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
-        <div class="avatar-circle" id="avatarEmoji">🧗</div>
-        <div class="check-badge">
-          <svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-      </div>
-
-      <div class="checkin-meta">
-        <div class="time-ago" id="cardTimeAgo">Eingecheckt: 00:00 minutes ago</div>
-        <div class="name" id="cardName">–</div>
-        <div class="member">M PRO Mitgliedschaftsnummer: 199205056</div>
       </div>
     </div>
 
-    <div class="bottom-card">
-      <div class="activity-row">
-        <div class="activity-thumb" style="background:none;padding:0;"><img src="https://images.unsplash.com/photo-1564769662533-4f00a87b4056?w=120&h=120&fit=crop&crop=center" alt="Bouldern" style="width:100%;height:100%;object-fit:cover;border-radius:10px;" /></div>
-        <div class="activity-info">
-          <div class="act-title" id="actTitle">Bouldern</div>
-          <div class="act-date" id="actDate">29 Juli, 14:29</div>
-          <div class="act-meta">
-            <span class="act-tag">
-              <svg viewBox="0 0 12 12" fill="none"><path d="M6 1a3.5 3.5 0 110 7A3.5 3.5 0 016 1zm0 8.5c-2.5 0-4.5.84-4.5 1.5h9c0-.66-2-1.5-4.5-1.5z" fill="#555"/></svg>
-              <span id="actLocation">–</span>
-            </span>
-            <span class="act-tag" style="margin-left:4px">
-              <svg viewBox="0 0 12 12" fill="none"><path d="M2 3h8v7H2z" stroke="#555" stroke-width="1"/><path d="M4 2v2M8 2v2M2 5h8" stroke="#555" stroke-width="1" stroke-linecap="round"/></svg>
-              <span id="actTag">Bouldern</span>
-            </span>
-          </div>
+    <div class="checkin-meta">
+      <div class="time-ago" id="cardTimeAgo">Eingecheckt: 00:08 minutes ago</div>
+      <div class="name" id="cardName">–</div>
+      <div class="member">M PRO Mitgliedschaftsnummer: 199205056</div>
+    </div>
+  </div>
+
+  <div class="bottom-card">
+    <div class="activity-row">
+      <div class="activity-thumb">
+        <img src="https://images.unsplash.com/photo-1564769662533-4f00a87b4056?w=120&h=120&fit=crop&crop=center" alt="Bouldern" />
+      </div>
+      <div class="activity-info">
+        <div class="act-title">Bouldern</div>
+        <div class="act-date" id="actDate">29 Juli, 14:29</div>
+        <div class="act-meta-line">
+          <!-- pin icon -->
+          <svg viewBox="0 0 12 12" fill="none">
+            <path d="M6 1a3 3 0 110 6A3 3 0 016 1zm0 7c-2.2 0-4 .7-4 1.5S3.8 11 6 11s4-.7 4-1.5S8.2 8 6 8z" fill="#555"/>
+          </svg>
+          <span class="location-name" id="actLocation">urban apes Hamburg St. Pauli</span>
+          <span class="location-short" id="actShort">(St. Pauli)</span>
+        </div>
+        <div class="act-meta-line">
+          <!-- tag icon -->
+          <svg viewBox="0 0 12 12" fill="none">
+            <path d="M2 2h4l4.5 4.5a1 1 0 010 1.4L8 10.4a1 1 0 01-1.4 0L2 5.5V2z" stroke="#555" stroke-width="1" stroke-linejoin="round"/>
+            <circle cx="4" cy="4" r=".8" fill="#555"/>
+          </svg>
+          <span>Bouldern</span>
         </div>
       </div>
-
-      <button class="share-btn">Teile deinen check-in</button>
-      <button class="new-checkin-btn" onclick="resetForm()">Neuer Check-In</button>
     </div>
+
+    <button class="share-btn" onclick="shareCheckin()">Teile deinen check-in</button>
   </div>
 </div>
 
 <script>
   let uploadedPhotoDataUrl = null;
 
-  // Prefill time with current time
   (function() {
     const now = new Date();
     const h = String(now.getHours()).padStart(2,'0');
@@ -439,10 +430,8 @@
     reader.onload = function(e) {
       uploadedPhotoDataUrl = e.target.result;
       const label = document.getElementById('photoLabel');
-      // Remove existing preview
       const existing = label.querySelector('img.preview');
       if (existing) existing.remove();
-      // Add new preview
       const img = document.createElement('img');
       img.src = uploadedPhotoDataUrl;
       img.className = 'preview';
@@ -463,8 +452,8 @@
       return;
     }
 
-    // Set avatar: photo or fallback emoji
-    const avatarCircle = document.getElementById('avatarEmoji');
+    // avatar
+    const avatarCircle = document.getElementById('avatarCircle');
     avatarCircle.innerHTML = '';
     if (uploadedPhotoDataUrl) {
       const img = document.createElement('img');
@@ -475,24 +464,26 @@
       avatarCircle.textContent = '🧗';
     }
 
-    // Format date string
+    // date
     const now = new Date();
     const months = ['Jan','Feb','Mär','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Dez'];
     const dateStr = `${now.getDate()} ${months[now.getMonth()]}, ${zeit}`;
 
+    // extract short location tag e.g. "urban apes Hamburg St. Pauli" → "(St. Pauli)"
+    const parts = ort.split(' ');
+    const short = parts.length >= 2 ? `(${parts[parts.length - 1]})` : '';
+
     document.getElementById('cardTime').textContent = zeit;
-    document.getElementById('cardTimeAgo').textContent = 'Eingecheckt: 00:00 minutes ago';
     document.getElementById('cardName').textContent = name;
     document.getElementById('actDate').textContent = dateStr;
     document.getElementById('actLocation').textContent = ort;
-    document.getElementById('actTag').textContent = 'Bouldern';
-    document.getElementById('actTitle').textContent = 'Bouldern';
+    document.getElementById('actShort').textContent = short;
 
     document.getElementById('formScreen').style.display = 'none';
     const card = document.getElementById('cardScreen');
-    card.style.display = 'block';
+    card.classList.add('visible');
 
-    // Animate time-ago counter
+    // live counter
     let secs = 0;
     const interval = setInterval(() => {
       secs++;
@@ -506,11 +497,10 @@
   function resetForm() {
     const card = document.getElementById('cardScreen');
     if (card._interval) clearInterval(card._interval);
-    card.style.display = 'none';
-    document.getElementById('formScreen').style.display = 'block';
+    card.classList.remove('visible');
+    document.getElementById('formScreen').style.display = 'flex';
     document.getElementById('inputName').value = '';
     document.getElementById('inputOrt').value = '';
-    // Reset photo
     uploadedPhotoDataUrl = null;
     document.getElementById('inputPhoto').value = '';
     const label = document.getElementById('photoLabel');
@@ -518,11 +508,22 @@
     if (existing) existing.remove();
     document.getElementById('photoHint').style.display = '';
     label.querySelector('.upload-icon').style.display = '';
-    // Reset time
     const now = new Date();
     const h = String(now.getHours()).padStart(2,'0');
     const m = String(now.getMinutes()).padStart(2,'0');
     document.getElementById('inputUhrzeit').value = `${h}:${m}`;
+  }
+
+  function shareCheckin() {
+    const name = document.getElementById('cardName').textContent;
+    const ort  = document.getElementById('actLocation').textContent;
+    const date = document.getElementById('actDate').textContent;
+    const text = `✅ ${name} ist eingecheckt!\n📍 ${ort}\n🕐 ${date}`;
+    if (navigator.share) {
+      navigator.share({ title: 'Check-In', text });
+    } else {
+      navigator.clipboard.writeText(text).then(() => alert('In Zwischenablage kopiert!'));
+    }
   }
 </script>
 </body>
