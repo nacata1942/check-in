@@ -20,7 +20,7 @@
       overflow: hidden;
     }
 
-    /* ── FORM SCREEN ── */
+    /* FORM */
     #formScreen {
       position: fixed;
       inset: 0;
@@ -34,21 +34,10 @@
       overflow-y: auto;
     }
 
-    #formScreen h1 {
-      font-size: 24px;
-      font-weight: 700;
-      color: #111;
-      margin-bottom: 6px;
-    }
-
-    #formScreen > p {
-      font-size: 14px;
-      color: #888;
-      margin-bottom: 28px;
-    }
+    #formScreen h1 { font-size: 24px; font-weight: 700; color: #111; margin-bottom: 6px; }
+    #formScreen > p { font-size: 14px; color: #888; margin-bottom: 28px; }
 
     .field { margin-bottom: 18px; }
-
     .field > label {
       display: block;
       font-size: 12px;
@@ -73,7 +62,7 @@
     input:focus { border-color: #5BBD8A; }
     input::placeholder { color: #bbb; }
 
-    .btn-ok {
+    #btnOkay {
       margin-top: 10px;
       width: 100%;
       padding: 16px;
@@ -112,27 +101,24 @@
     }
     #inputPhoto { display: none; }
 
-    /* ── CARD SCREEN ── */
+    /* CARD */
     #cardScreen {
-      display: none;
       position: fixed;
       inset: 0;
       background: #5BBD8A;
+      display: none;
       flex-direction: column;
     }
     #cardScreen.visible { display: flex; }
 
-
-
-    /* nav bar */
     .nav-bar {
       display: flex;
       align-items: center;
       justify-content: center;
-      padding-top: max(16px, env(safe-area-inset-top));
+      padding-top: max(18px, env(safe-area-inset-top));
       padding-left: 20px;
       padding-right: 20px;
-      padding-bottom: 0;
+      padding-bottom: 4px;
       position: relative;
       flex-shrink: 0;
     }
@@ -142,16 +128,9 @@
       color: rgba(255,255,255,.9);
       font-size: 22px;
       cursor: pointer;
-      line-height: 1;
     }
-    .nav-bar h2 {
-      color: #fff;
-      font-size: 17px;
-      font-weight: 600;
-      letter-spacing: -.01em;
-    }
+    .nav-bar h2 { color: #fff; font-size: 17px; font-weight: 600; }
 
-    /* green area — avatar centered with lots of breathing room */
     .avatar-area {
       flex: 1;
       display: flex;
@@ -170,7 +149,7 @@
     .avatar-ring svg.ring-svg {
       position: absolute; inset: 0;
       width: 100%; height: 100%;
-      animation: spin 10s linear infinite;
+      animation: spin 20s linear infinite;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
 
@@ -186,13 +165,10 @@
       overflow: hidden;
     }
 
-    /* green badge with white checkmark — exactly like original */
     .check-badge {
       position: absolute;
-      bottom: 6px;
-      right: 6px;
-      width: 34px;
-      height: 34px;
+      bottom: 8px; right: 8px;
+      width: 36px; height: 36px;
       background: #5BBD8A;
       border: 3px solid #fff;
       border-radius: 50%;
@@ -200,36 +176,23 @@
       align-items: center;
       justify-content: center;
     }
-    .check-badge svg { width: 17px; height: 17px; }
+    .check-badge svg { width: 18px; height: 18px; }
 
     .checkin-meta { text-align: center; color: #fff; }
-    .checkin-meta .time-ago {
-      font-size: 13px;
-      opacity: .9;
-      margin-bottom: 6px;
-      font-weight: 400;
-    }
-    .checkin-meta .name {
-      font-size: 22px;
-      font-weight: 700;
-      letter-spacing: -.01em;
-    }
-    .checkin-meta .member {
-      font-size: 12px;
-      opacity: .65;
-      margin-top: 5px;
-      font-weight: 400;
-    }
+    .checkin-meta .time-ago { font-size: 13px; opacity: .9; margin-bottom: 6px; }
+    .checkin-meta .name { font-size: 22px; font-weight: 700; }
+    .checkin-meta .member { font-size: 12px; opacity: .65; margin-top: 5px; }
 
-    /* bottom white card — compact, no rounded outer wrapper */
     .bottom-card {
       background: #f2f2f2;
       border-radius: 20px 20px 0 0;
       padding: 16px 16px max(20px, env(safe-area-inset-bottom));
       flex-shrink: 0;
+      position: sticky;
+      bottom: 0;
+      z-index: 10;
     }
 
-    /* activity row — white card inside */
     .activity-row {
       display: flex;
       gap: 12px;
@@ -241,16 +204,12 @@
     }
 
     .activity-thumb {
-      width: 58px;
-      height: 58px;
+      width: 58px; height: 58px;
       border-radius: 10px;
       overflow: hidden;
       flex-shrink: 0;
     }
-    .activity-thumb img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-    }
+    .activity-thumb img { width: 100%; height: 100%; object-fit: cover; }
 
     .activity-info { flex: 1; min-width: 0; }
     .act-title { font-size: 15px; font-weight: 700; color: #111; margin-bottom: 2px; }
@@ -265,14 +224,8 @@
       margin-bottom: 3px;
     }
     .act-meta-line svg { width: 12px; height: 12px; flex-shrink: 0; }
-    .act-meta-line .location-name { flex: 1; }
-    .act-meta-line .location-short {
-      color: #555;
-      margin-left: 6px;
-      white-space: nowrap;
-    }
+    .act-meta-line .location-short { margin-left: 6px; white-space: nowrap; }
 
-    /* share button — outlined, blue text like original */
     .share-btn {
       display: block;
       width: 100%;
@@ -314,19 +267,16 @@
       <span class="upload-icon">📷</span>
       <span id="photoHint">Foto auswählen</span>
     </label>
-    <input type="file" id="inputPhoto" accept="image/*" onchange="previewPhoto(this)" />
+    <input type="file" id="inputPhoto" accept="image/*" />
   </div>
 
-  <button class="btn-ok" onclick="generateCard()">Okay ✓</button>
+  <button id="btnOkay">Okay ✓</button>
 </div>
 
 <!-- CARD -->
 <div id="cardScreen">
-
-
-
   <div class="nav-bar">
-    <span class="close-x" onclick="resetForm()">✕</span>
+    <span class="close-x" id="closeBtn">✕</span>
     <h2>Du bist eingecheckt</h2>
   </div>
 
@@ -348,7 +298,7 @@
     </div>
 
     <div class="checkin-meta">
-      <div class="time-ago" id="cardTimeAgo">Eingecheckt: 00:08 minutes ago</div>
+      <div class="time-ago" id="cardTimeAgo">Eingecheckt: 00:00 minutes ago</div>
       <div class="name" id="cardName">–</div>
       <div class="member">M PRO Mitgliedschaftsnummer: 199205056</div>
     </div>
@@ -361,17 +311,15 @@
       </div>
       <div class="activity-info">
         <div class="act-title">Bouldern</div>
-        <div class="act-date" id="actDate">29 Juli, 14:29</div>
+        <div class="act-date" id="actDate">–</div>
         <div class="act-meta-line">
-          <!-- pin icon -->
           <svg viewBox="0 0 12 12" fill="none">
             <path d="M6 1a3 3 0 110 6A3 3 0 016 1zm0 7c-2.2 0-4 .7-4 1.5S3.8 11 6 11s4-.7 4-1.5S8.2 8 6 8z" fill="#555"/>
           </svg>
-          <span class="location-name" id="actLocation">urban apes Hamburg St. Pauli</span>
-          <span class="location-short" id="actShort">(St. Pauli)</span>
+          <span id="actLocation">–</span>
+          <span class="location-short" id="actShort"></span>
         </div>
         <div class="act-meta-line">
-          <!-- tag icon -->
           <svg viewBox="0 0 12 12" fill="none">
             <path d="M2 2h4l4.5 4.5a1 1 0 010 1.4L8 10.4a1 1 0 01-1.4 0L2 5.5V2z" stroke="#555" stroke-width="1" stroke-linejoin="round"/>
             <circle cx="4" cy="4" r=".8" fill="#555"/>
@@ -380,92 +328,97 @@
         </div>
       </div>
     </div>
-
-    <button class="share-btn" onclick="shareCheckin()">Teile deinen check-in</button>
+    <button class="share-btn" id="shareBtn">Teile deinen check-in</button>
   </div>
 </div>
 
 <script>
-  let uploadedPhotoDataUrl = null;
+  var uploadedPhotoDataUrl = null;
 
-  (function() {
-    const now = new Date();
-    const h = String(now.getHours()).padStart(2,'0');
-    const m = String(now.getMinutes()).padStart(2,'0');
-    document.getElementById('inputUhrzeit').value = `${h}:${m}`;
-  })();
+  // prefill time
+  var now = new Date();
+  document.getElementById('inputUhrzeit').value =
+    String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
 
-  function previewPhoto(input) {
-    if (!input.files || !input.files[0]) return;
-    const reader = new FileReader();
+  // photo preview
+  document.getElementById('inputPhoto').addEventListener('change', function() {
+    var file = this.files[0];
+    if (!file) return;
+    var reader = new FileReader();
     reader.onload = function(e) {
       uploadedPhotoDataUrl = e.target.result;
-      const label = document.getElementById('photoLabel');
-      const existing = label.querySelector('img.preview');
-      if (existing) existing.remove();
-      const img = document.createElement('img');
+      var label = document.getElementById('photoLabel');
+      var old = label.querySelector('img.preview');
+      if (old) old.remove();
+      var img = document.createElement('img');
       img.src = uploadedPhotoDataUrl;
       img.className = 'preview';
       label.insertBefore(img, label.firstChild);
       document.getElementById('photoHint').style.display = 'none';
       label.querySelector('.upload-icon').style.display = 'none';
     };
-    reader.readAsDataURL(input.files[0]);
-  }
+    reader.readAsDataURL(file);
+  });
 
-  function generateCard() {
-    const name = document.getElementById('inputName').value.trim();
-    const ort  = document.getElementById('inputOrt').value.trim();
-    const zeit = document.getElementById('inputUhrzeit').value;
+  // okay button
+  document.getElementById('btnOkay').addEventListener('click', function() {
+    var name = document.getElementById('inputName').value.trim();
+    var ort  = document.getElementById('inputOrt').value.trim();
+    var zeit = document.getElementById('inputUhrzeit').value;
 
     if (!name || !ort || !zeit) {
       alert('Bitte alle Felder ausfüllen.');
       return;
     }
 
-    // avatar
-    const avatarCircle = document.getElementById('avatarCircle');
-    avatarCircle.innerHTML = '';
+    // set avatar
+    var circle = document.getElementById('avatarCircle');
+    circle.innerHTML = '';
     if (uploadedPhotoDataUrl) {
-      const img = document.createElement('img');
+      var img = document.createElement('img');
       img.src = uploadedPhotoDataUrl;
-      img.style.cssText = 'width:100%;height:100%;object-fit:cover;border-radius:50%;';
-      avatarCircle.appendChild(img);
+      img.style.width = '100%';
+      img.style.height = '100%';
+      img.style.objectFit = 'cover';
+      img.style.borderRadius = '50%';
+      circle.appendChild(img);
     } else {
-      avatarCircle.textContent = '🧗';
+      circle.textContent = '🧗';
     }
 
-    // date
-    const now = new Date();
-    const months = ['Jan','Feb','Mär','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Dez'];
-    const dateStr = `${now.getDate()} ${months[now.getMonth()]}, ${zeit}`;
+    // date string
+    var d = new Date();
+    var months = ['Jan','Feb','Mär','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Dez'];
+    var dateStr = d.getDate() + ' ' + months[d.getMonth()] + ', ' + zeit;
 
-    // extract short location tag e.g. "urban apes Hamburg St. Pauli" → "(St. Pauli)"
-    const parts = ort.split(' ');
-    const short = parts.length >= 2 ? `(${parts[parts.length - 1]})` : '';
+    // short location
+    var parts = ort.split(' ');
+    var short = parts.length >= 2 ? '(' + parts[parts.length - 1] + ')' : '';
 
     document.getElementById('cardName').textContent = name;
     document.getElementById('actDate').textContent = dateStr;
     document.getElementById('actLocation').textContent = ort;
     document.getElementById('actShort').textContent = short;
+    document.getElementById('cardTimeAgo').textContent = 'Eingecheckt: 00:00 minutes ago';
 
     document.getElementById('formScreen').style.display = 'none';
-    const card = document.getElementById('cardScreen');
-    card.classList.add('visible');
+    document.getElementById('cardScreen').classList.add('visible');
 
-    // live counter
-    let secs = 0;
-    const interval = setInterval(() => {
+    // counter
+    var secs = 0;
+    var card = document.getElementById('cardScreen');
+    if (card._interval) clearInterval(card._interval);
+    card._interval = setInterval(function() {
       secs++;
-      const mm = String(Math.floor(secs / 60)).padStart(2,'0');
-      const ss = String(secs % 60).padStart(2,'0');
-      document.getElementById('cardTimeAgo').textContent = `Eingecheckt: ${mm}:${ss} minutes ago`;
+      var mm = String(Math.floor(secs / 60)).padStart(2,'0');
+      var ss = String(secs % 60).padStart(2,'0');
+      document.getElementById('cardTimeAgo').textContent = 'Eingecheckt: ' + mm + ':' + ss + ' minutes ago';
     }, 1000);
-    card._interval = interval;
-  }
+  });
 
-  function resetForm() {
-    const card = document.getElementById('cardScreen');
+  // close button
+  document.getElementById('closeBtn').addEventListener('click', function() {
+    var card = document.getElementById('cardScreen');
     if (card._interval) clearInterval(card._interval);
     card.classList.remove('visible');
     document.getElementById('formScreen').style.display = 'flex';
@@ -473,28 +426,28 @@
     document.getElementById('inputOrt').value = '';
     uploadedPhotoDataUrl = null;
     document.getElementById('inputPhoto').value = '';
-    const label = document.getElementById('photoLabel');
-    const existing = label.querySelector('img.preview');
-    if (existing) existing.remove();
+    var label = document.getElementById('photoLabel');
+    var old = label.querySelector('img.preview');
+    if (old) old.remove();
     document.getElementById('photoHint').style.display = '';
     label.querySelector('.upload-icon').style.display = '';
-    const now = new Date();
-    const h = String(now.getHours()).padStart(2,'0');
-    const m = String(now.getMinutes()).padStart(2,'0');
-    document.getElementById('inputUhrzeit').value = `${h}:${m}`;
-  }
+    var n = new Date();
+    document.getElementById('inputUhrzeit').value =
+      String(n.getHours()).padStart(2,'0') + ':' + String(n.getMinutes()).padStart(2,'0');
+  });
 
-  function shareCheckin() {
-    const name = document.getElementById('cardName').textContent;
-    const ort  = document.getElementById('actLocation').textContent;
-    const date = document.getElementById('actDate').textContent;
-    const text = `✅ ${name} ist eingecheckt!\n📍 ${ort}\n🕐 ${date}`;
+  // share button
+  document.getElementById('shareBtn').addEventListener('click', function() {
+    var name = document.getElementById('cardName').textContent;
+    var ort  = document.getElementById('actLocation').textContent;
+    var date = document.getElementById('actDate').textContent;
+    var text = '✅ ' + name + ' ist eingecheckt!\n📍 ' + ort + '\n🕐 ' + date;
     if (navigator.share) {
-      navigator.share({ title: 'Check-In', text });
+      navigator.share({ title: 'Check-In', text: text });
     } else {
-      navigator.clipboard.writeText(text).then(() => alert('In Zwischenablage kopiert!'));
+      navigator.clipboard.writeText(text).then(function() { alert('Kopiert!'); });
     }
-  }
+  });
 </script>
 </body>
 </html>
