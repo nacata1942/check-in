@@ -104,10 +104,15 @@
     /* CARD */
     #cardScreen {
       position: fixed;
-      inset: 0;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 100dvh;
       background: #5BBD8A;
       display: none;
       flex-direction: column;
+      overflow-y: auto;
     }
     #cardScreen.visible { display: flex; }
 
@@ -133,6 +138,7 @@
 
     .avatar-area {
       flex: 1;
+      min-height: 320px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -186,11 +192,9 @@
     .bottom-card {
       background: #f2f2f2;
       border-radius: 20px 20px 0 0;
-      padding: 16px 16px max(20px, env(safe-area-inset-bottom));
+      padding: 16px 16px max(24px, env(safe-area-inset-bottom));
       flex-shrink: 0;
-      position: sticky;
-      bottom: 0;
-      z-index: 10;
+      width: 100%;
     }
 
     .activity-row {
